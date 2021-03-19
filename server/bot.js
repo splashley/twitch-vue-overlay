@@ -2,12 +2,7 @@ var firebase = require("firebase/app");
 require("firebase/firestore");
 
 const config = {
-  apiKey: "AIzaSyDVZRFAYf1eWp51IKklrJ0XMkV0dPTLyOg",
-  authDomain: "testinggrounds-96659.firebaseapp.com",
-  projectId: "testinggrounds-96659",
-  storageBucket: "testinggrounds-96659.appspot.com",
-  messagingSenderId: "662090940107",
-  appId: "1:662090940107:web:60944f4bcc6e4d9613a54e",
+  // config here
 };
 const firebaseApp = firebase.initializeApp(config);
 const db = firebaseApp.firestore();
@@ -25,9 +20,7 @@ const client = new tmi.Client({
   },
   identity: {
     username: "0NEGUY",
-    password: "oauth:eh79ruw2hdsjystq5uyksgj7an0wpn",
-    _botAuth: "oauth:fmiubfkgn0qmoapvj0dfs0b0fh1j33",
-    _mainAuth: "oauth:eh79ruw2hdsjystq5uyksgj7an0wpn",
+    password: "oauth:xxxxxxxxxxxxxxxx",
   },
   channels: ["0neguy", "splashley"],
 });
