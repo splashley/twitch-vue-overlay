@@ -1,0 +1,19 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon bot"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "firebase": "^8.3.1",
+    "tmi.js": "^1.7.5"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.7"
+  }
+}
