@@ -2,7 +2,7 @@ var firebase = require("firebase/app");
 require("firebase/firestore");
 
 const config = {
-  // config here
+  //config here
 };
 const firebaseApp = firebase.initializeApp(config);
 const db = firebaseApp.firestore();
@@ -20,7 +20,7 @@ const client = new tmi.Client({
   },
   identity: {
     username: "0NEGUY",
-    password: "oauth:xxxxxxxxxxxxxxxx",
+    password: "oauth:xxxx",
   },
   channels: ["0neguy", "splashley"],
 });
@@ -40,11 +40,11 @@ client.on("message", (channel, tags, message, self) => {
         }
       })
       .then(function () {
-        console.log("Todo successfully updated!");
+        console.log("State successfully updated!");
       })
       .catch(function (error) {
         // The document probably doesn't exist.
-        console.error("Error updating todo: ", error);
+        console.error("Error updating state: ", error);
       });
   }
 });
