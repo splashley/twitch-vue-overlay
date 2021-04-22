@@ -1,7 +1,5 @@
 <template>
-  <div id="app">
-    <h1>{{ state }}</h1>
-  </div>
+  <div id="overlay"></div>
 </template>
 
 <script>
@@ -23,36 +21,44 @@ export default {
   watch: {
     state(val) {
       if (val === undefined) return;
-      if (val.active) this.startConfetti();
-      if (!val.active) this.stopConfetti();
+      if (val.active) this.startConfetti(3500);
     },
   },
   methods: {
     connectToDB() {
       overlayCollection
-        .doc("state")
-        .onSnapshot((doc) => (this.state = doc.data()));
+        .doc("confetti")
+        .onSnapshot((doc) => this.state = doc.data());
     },
-    startConfetti() {
-      this.$confetti.start();
-    },
-    stopConfetti() {
-      this.$confetti.stop();
+
+    startConfetti(ms) {
+      this.$confetti.start({
+  particles: [
+    {
+      type: 'heart',
+    }
+  ],
+  defaultColors: [
+    'red',
+    'pink',
+    '#ba0000',
+  ],
+});
+      setTimeout(() => {
+        this.$confetti.stop();
+        overlayCollection.doc("state").set({ active: false });
+      }, ms);
     },
   },
 };
 </script>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+* {
+  margin: 0 !important;
 }
-h1 {
-  color: blue;
+#overlay {
+  height: 100vh;
+  width: 100vw;
 }
 </style>

@@ -1,12 +1,19 @@
 var firebase = require("firebase/app");
 require("firebase/firestore");
+require("dotenv").config();
 
 const config = {
-  //config here
+  apiKey: process.env.apiKey,
+  authDomain: process.env.authDomain,
+  projectId: process.env.projectId,
+  storageBucket: process.env.storageBucket,
+  messagingSenderId: process.env.messagingSenderId,
+  appId: process.env.appId,
 };
+
 const firebaseApp = firebase.initializeApp(config);
 const db = firebaseApp.firestore();
-const overlayCollection = db.collection("overlay");
+const overlayCollection = db.collection("overlays");
 
 const tmi = require("tmi.js");
 
@@ -19,10 +26,10 @@ const client = new tmi.Client({
     secure: true,
   },
   identity: {
-    username: "0NEGUY",
-    password: "oauth:xxxx",
+    username: "splashleybot",
+    password: process.env.TWITCH_PASSWORD,
   },
-  channels: ["0neguy", "splashley"],
+  channels: ["splashley"],
 });
 
 client.connect();
@@ -30,21 +37,12 @@ client.connect();
 client.on("message", (channel, tags, message, self) => {
   if (message === "!toggleConfetti") {
     overlayCollection
-      .doc("state")
+      .doc("confetti")
       .get()
-      .then(function (doc) {
-        if (doc.exists) {
-          return doc.ref.update({ active: !doc.data().active });
-        } else {
-          // Throw an error
-        }
+      .then((doc) => {
+        if (doc.exists) return doc.ref.update({ active: !doc.data().active });
       })
-      .then(function () {
-        console.log("State successfully updated!");
-      })
-      .catch(function (error) {
-        // The document probably doesn't exist.
-        console.error("Error updating state: ", error);
-      });
+      .then(() => console.log("State successfully updated!"))
+      .catch((error) => console.error("Error updating state: ", error));
   }
 });
